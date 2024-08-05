@@ -1,0 +1,13 @@
+.banner-category{
+    display: flex;
+    padding: 3%;
+    margin-left: 5%;
+    gap: 2%;
+    
+}
+.category{
+    width: 15rem;
+    padding: 1%;
+    border-right: 1px solid rgb(205, 204, 204); 
+    text-align: left;
+}
