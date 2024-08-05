@@ -7,6 +7,11 @@ import InputGroup from 'react-bootstrap/InputGroup';
 function Navbar() {
   const checkuserState = !!localStorage.getItem('username');
   const username = checkuserState ? localStorage.getItem('username') : '';
+  const handleLogout = () => {
+    localStorage.removeItem('username');
+    
+    window.location.href='/Login';
+  };
 
   const navbarWrapper = {
     height: '2rem',
@@ -36,9 +41,18 @@ function Navbar() {
         <Link to="/Home" className="nav-item" style={linkStyle}>Home</Link>
         <Link to="/Contact" className="nav-item" style={linkStyle}>Contact</Link>
         <Link to="/About" className="nav-item" style={linkStyle}>About</Link>
-        <Link to="/Login" className="nav-item" style={linkStyle}>
-          {checkuserState ? '👤'+username : 'Sign In'}
-        </Link>
+        {checkuserState ? (
+          <>
+            <Link to="/Profile" className="nav-item" style={linkStyle}>
+              {'👤 ' + username}
+            </Link>
+            <a className="nav-item" style={linkStyle} onClick={handleLogout}>
+              Logout
+            </a>
+          </>
+        ) : (
+          <Link to="/Login" className="nav-item" style={linkStyle}>Sign In</Link>
+        )}
       </div>
       <div className="search-area" style={searchArea}>
         <InputGroup size="sm" className="mb-3">
@@ -50,6 +64,9 @@ function Navbar() {
           <InputGroup.Text id="inputGroup-sizing-sm">🔎</InputGroup.Text>
         </InputGroup>&nbsp;
         <img src="../assets/images/cart.png" alt="Cart" />
+      </div>
+      <div>
+        
       </div>
     </div>
   );
