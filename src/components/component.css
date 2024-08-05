@@ -48,21 +48,36 @@
 }
 .cart-btn{
     width: 48%;
-    background-color: #ff851b;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+   
+    height: 3rem;
+    border-radius: 0.5rem;
+    
+}
+.cart-btn:hover{
+  background-color: black;
+  color: #f5f5f5;
+  transition: 0.1ms ease-in-out;
+}
+.buy-btn{
+    width: 48%;
+    background-color: red;
     color: #ffffff;
     border: none;
     height: 3rem;
     border-radius: 0.5rem;
     
 }
-.buy-btn{
-    width: 48%;
-    background-color: #28a745;
-    color: #ffffff;
-    border: none;
-    height: 3rem;
-    border-radius: 0.5rem;
-    
+.buy-btn:hover{
+  width: 48%;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  height: 3rem;
+  border-radius: 0.5rem;
+  
 }
 .footer-wrapper{
   height: auto;
