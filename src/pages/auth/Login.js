@@ -36,7 +36,7 @@ function Login() {
               type="text"
               id="user_id"
               name="user_id"
-              placeholder="Email or Phone Number"
+              placeholder="Enter Your Email"
               required
             />
             <input
@@ -48,8 +48,9 @@ function Login() {
             />
             <div className="login-action">
               <button type="submit" className="buy-btn">Login</button>
-              <a href="#">Forget Password</a>
+              <a href="#" className='forgot-pass'>Forget Password</a>
             </div>
+            <a href='/Signup' className='login_acc'>Dont Have an Account</a>
           </form>
         </div>
       </div>

@@ -69,10 +69,11 @@ function ProductList() {
         {products.map((item) => {
           return (
             <ProductCard
+            id={item.id}
               name={item.name}
               image={item.image}
               price={item.price}
-              reviews={item.reviews}
+              reviews={item.review}
             />
           );
         })}
