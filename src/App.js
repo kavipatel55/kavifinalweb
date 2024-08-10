@@ -7,6 +7,7 @@ import Login from "./pages/auth/Login";
 import ProductInfo from "./components/ProductInfo";
 import Registration from "./pages/auth/Registration";
 import { Routes, Route,  BrowserRouter } from "react-router-dom";
+import Add from "./pages/auth/admin/Add";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Registration />} />
           <Route path="/product/:id" element={<ProductInfo />} />
+          <Route path="/Add" element={< Add/>} />
         </Routes>
         <Footer/>
       </BrowserRouter>

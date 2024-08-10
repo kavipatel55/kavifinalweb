@@ -2,11 +2,11 @@
 import { useNavigate } from "react-router-dom";
 import "./component.css";
 
-function ProductCard({ id, name, image, price, review }) {
+function ProductCard({ id, name, image, price, review,description }) {
   const navigate = useNavigate();
 
   const handleViewDetails = () => {
-    navigate(`/product/${id}`, { state: { product: { id, name, image, price, review } } });
+    navigate(`/product/${id}`, { state: { product: { id, name, image, price, review,description } } });
   };
 
   return (

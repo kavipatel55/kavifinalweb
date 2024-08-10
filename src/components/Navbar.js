@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from './Header';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 function Navbar() {
   const checkuserState = !!localStorage.getItem('username');
   const username = checkuserState ? localStorage.getItem('username') : '';
@@ -44,7 +43,7 @@ function Navbar() {
         {checkuserState ? (
           <>
             <Link to="/Profile" className="nav-item" style={linkStyle}>
-              {'👤 ' + username}
+              {username}
             </Link>
             <a className="nav-item" style={linkStyle} onClick={handleLogout}>
               Logout
@@ -55,15 +54,17 @@ function Navbar() {
         )}
       </div>
       <div className="search-area" style={searchArea}>
-        <InputGroup size="sm" className="mb-3">
-          <Form.Control
-            aria-label="Small"
-            placeholder="What are you looking for?"
-            style={{ width: '15rem', height: '2rem', fontSize: '1rem' }}
-          />
-          <InputGroup.Text id="inputGroup-sizing-sm">🔎</InputGroup.Text>
-        </InputGroup>&nbsp;
-        <img src="../assets/images/cart.png" alt="Cart" />
+      <input
+              type="text"
+              placeholder="Search..."
+              className="search-input"
+              required
+            />
+            <div style={{display:"flex",marginLeft:"15px",marginTop:"10px",gap:"10px"}}>
+            <FontAwesomeIcon icon={faShoppingCart} />
+            <FontAwesomeIcon icon={faUser} />
+            </div>
+        
       </div>
       <div>
         

@@ -8,7 +8,8 @@ function ProductList() {
       name: "Monitor",
       price: 10.99,
       review: "⭐",
-      image: "assets/images/monitor.png",
+      image: "../assets/images/monitor.png",
+      description: "A high-definition monitor suitable for gaming and office use.",
     },
     {
       id: 2,
@@ -16,6 +17,7 @@ function ProductList() {
       price: 10.99,
       review: "⭐",
       image: "../assets/images/gamecontroller.png",
+      description: "Ergonomic game controller with responsive buttons.",
     },
     {
       id: 3,
@@ -23,6 +25,7 @@ function ProductList() {
       price: 10.99,
       review: "⭐",
       image: "../assets/images/keyboard.png",
+      description: "Mechanical keyboard with customizable RGB lighting.",
     },
     {
       id: 4,
@@ -30,6 +33,7 @@ function ProductList() {
       price: 10.99,
       review: "⭐",
       image: "../assets/images/chair.png",
+      description: "Comfortable office chair with adjustable height.",
     },
     {
       id: 5,
@@ -37,6 +41,7 @@ function ProductList() {
       price: 10.99,
       review: "⭐",
       image: "../assets/images/monitor.png",
+      description: "A high-definition monitor suitable for gaming and office use.",
     },
     {
       id: 6,
@@ -44,6 +49,7 @@ function ProductList() {
       price: 10.99,
       review: "⭐",
       image: "../assets/images/gamecontroller.png",
+      description: "Ergonomic game controller with responsive buttons."
     },
     {
       id: 7,
@@ -51,6 +57,7 @@ function ProductList() {
       price: 10.99,
       review: "⭐",
       image: "../assets/images/keyboard.png",
+      description: "Mechanical keyboard with customizable RGB lighting."
     },
     {
       id: 8,
@@ -58,6 +65,7 @@ function ProductList() {
       price: 10.99,
       review: "⭐",
       image: "../assets/images/chair.png",
+      description: "Comfortable office chair with adjustable height."
     },
   ];
   return (
@@ -74,6 +82,7 @@ function ProductList() {
               image={item.image}
               price={item.price}
               reviews={item.review}
+              description={item.description}
             />
           );
         })}

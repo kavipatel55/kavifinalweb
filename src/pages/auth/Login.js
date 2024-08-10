@@ -11,9 +11,13 @@ function Login() {
     };
 
     if (userCred.user_id && userCred.user_password) {
-      
       localStorage.setItem('username', userCred.user_id);
-      window.location.href = '/';
+      if(userCred.user_id=="admin@gmail.com" && userCred.user_password == "1234"){
+        window.location.href = "/Add";
+      }else{
+      window.location.href = "/";
+      }
+      
     } else {
      
       alert('Please fill in all fields.');
