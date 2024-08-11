@@ -1,91 +1,42 @@
 import ProductCard from "./ProductCard";
 import "./component.css";
+import React, { useState, useEffect } from "react";
+
 function ProductList() {
-  // const [products, setProducts] = useState([]);
-  const products = [
-    {
-      id: 1,
-      name: "Monitor",
-      price: 10.99,
-      review: "⭐",
-      image: "../assets/images/monitor.png",
-      description: "A high-definition monitor suitable for gaming and office use.",
-    },
-    {
-      id: 2,
-      name: "Game controller",
-      price: 10.99,
-      review: "⭐",
-      image: "../assets/images/gamecontroller.png",
-      description: "Ergonomic game controller with responsive buttons.",
-    },
-    {
-      id: 3,
-      name: "Keyboard",
-      price: 10.99,
-      review: "⭐",
-      image: "../assets/images/keyboard.png",
-      description: "Mechanical keyboard with customizable RGB lighting.",
-    },
-    {
-      id: 4,
-      name: "chair",
-      price: 10.99,
-      review: "⭐",
-      image: "../assets/images/chair.png",
-      description: "Comfortable office chair with adjustable height.",
-    },
-    {
-      id: 5,
-      name: "Monitor",
-      price: 10.99,
-      review: "⭐",
-      image: "../assets/images/monitor.png",
-      description: "A high-definition monitor suitable for gaming and office use.",
-    },
-    {
-      id: 6,
-      name: "Game controller",
-      price: 10.99,
-      review: "⭐",
-      image: "../assets/images/gamecontroller.png",
-      description: "Ergonomic game controller with responsive buttons."
-    },
-    {
-      id: 7,
-      name: "Keyboard",
-      price: 10.99,
-      review: "⭐",
-      image: "../assets/images/keyboard.png",
-      description: "Mechanical keyboard with customizable RGB lighting."
-    },
-    {
-      id: 8,
-      name: "chair",
-      price: 10.99,
-      review: "⭐",
-      image: "../assets/images/chair.png",
-      description: "Comfortable office chair with adjustable height."
-    },
-  ];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getProductDetails();
+  }, []);
+
+  async function getProductDetails() {
+    try {
+      const response = await fetch("http://localhost:3131/api/products/getProductsList");
+      const data = await response.json();
+      console.log(data.product);
+      setProducts(data.product); 
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  }
+
   return (
     <div className="container">
       <p className="sale">
         <b>Flash Sale</b>
       </p>
       <div className="product-container">
-        {products.map((item) => {
-          return (
-            <ProductCard
-            id={item.id}
-              name={item.name}
-              image={item.image}
-              price={item.price}
-              reviews={item.review}
-              description={item.description}
-            />
-          );
-        })}
+        {products.map((item) => (
+          <ProductCard
+            key={item._id} 
+            id={item._id} 
+            name={item.name}
+            image={item.image}
+            price={item.pricing} 
+            reviews={item.review}
+            description={item.description}
+          />
+        ))}
       </div>
     </div>
   );

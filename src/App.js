@@ -8,6 +8,7 @@ import ProductInfo from "./components/ProductInfo";
 import Registration from "./pages/auth/Registration";
 import { Routes, Route,  BrowserRouter } from "react-router-dom";
 import Add from "./pages/auth/admin/Add";
+import Cart from "./components/Cart";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/Signup" element={<Registration />} />
           <Route path="/product/:id" element={<ProductInfo />} />
           <Route path="/Add" element={< Add/>} />
+          <Route path="/Cart" element={< Cart/>} />
         </Routes>
         <Footer/>
       </BrowserRouter>

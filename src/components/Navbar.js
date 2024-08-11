@@ -38,7 +38,7 @@ function Navbar() {
       <Header />
       <div className="navbar-menu">
         <Link to="/" className="nav-item" style={linkStyle}>Home</Link>
-        <Link to="/Contact" className="nav-item" style={linkStyle}>Contact</Link>
+        <Link to="/Cart" className="nav-item" style={linkStyle}>Cart</Link>
         <Link to="/About" className="nav-item" style={linkStyle}>About</Link>
         {checkuserState ? (
           <>

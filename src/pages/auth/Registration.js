@@ -6,18 +6,33 @@ function Registration() {
     e.preventDefault();
     const formdata = new FormData(e.target);
     const newUser = {
-     
-      user_password: formdata.get('user_password'),
-      user_name: formdata.get('user_name'),
-      user_email: formdata.get('user_email'),
+      email: formdata.get('user_email'),
+      password: formdata.get('user_password'),
     };
 
-    if ( newUser.user_password && newUser.user_name && newUser.user_email ) {
-      
-      localStorage.setItem('username', newUser.user_email);
-      window.location.href = '/';
+    if (newUser.email && newUser.password) {
+      try {
+        const response = await fetch("http://localhost:3131/api/users/register", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newUser),
+        });
+        
+        const data = await response.json();
+        if (response.ok) {
+          localStorage.setItem('username', newUser.email);
+          alert('Your account is created please login');
+          window.location.href = '/Login';
+        } else {
+          alert(data.error || 'Registration failed');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        alert('An error occurred while registering');
+      }
     } else {
-      
       alert('Please fill in all fields.');
     }
   };
@@ -34,11 +49,11 @@ function Registration() {
         </div>
         <div className="login-form">
           <form onSubmit={register}>
-            <input
-              type="text"
-              id="user_name"
-              name="user_name"
-              placeholder="Full Name"
+          <input
+              type="email"
+              id="user_email"
+              name="user_email"
+              placeholder="Email"
               required
             />
             <input
@@ -48,14 +63,7 @@ function Registration() {
               placeholder="Password"
               required
             />
-            <input
-              type="email"
-              id="user_email"
-              name="user_email"
-              placeholder="Email"
-              required
-            />
-           
+            
             <div className="login-action">
               <button type="submit" className="buy-btn">Register</button>
               <a href="/Login" className='login_acc'>Already have an account? Login</a>

@@ -1,139 +1,126 @@
-import React, { useState } from "react";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
+import React, { useState } from 'react';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 function Add() {
-    const [image, setImage] = useState(null);
-    const [productInfo, setProductInfo] = useState({
-        name: '',
-        category: '',
-        description: '',
-        pricing: '',
-        rating: ''
-    });
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [image, setImage] = useState(null);
+  const [pricing, setPricing] = useState('');
+  const [message, setMessage] = useState('');
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setProductInfo({
-            ...productInfo,
-            [name]: value
-        });
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        setImage(file);
-    };
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('image', image);
+    formData.append('pricing', pricing.toString());
 
-    const addProduct = async (e) => {
-        e.preventDefault();
-
-        if (!image) {
-            console.error('Please select an image.');
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('name', productInfo.name);
-        formData.append('description', productInfo.description);
-        formData.append('pricing', productInfo.pricing);
-        formData.append('image', image);
+    fetch('http://localhost:3131/api/products/createProduct', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setMessage(data.message);
+        setName('');
+        setDescription('');
+        setImage(null);
+        setPricing('');
         
-        try {
-            const response = await fetch("http://localhost:3001/api/products/createProduct", {
-                method: 'POST',
-                body: formData
-            });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        setMessage('Failed to create product');
+      });
+  };
 
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Product added successfully:', data);
-            } else {
-                console.error('Failed to add product:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error adding product:', error.message);
-        }
-    };
+  const handleFileChange = (event) => {
+    setImage(event.target.files[0]);
+  };
 
-    return (
-        <>
-            <div className="mainDiv" style={{ marginTop: "0" }}>
-                <form className="card divCard" style={{ padding: "5%" }} onSubmit={addProduct} >
-                    <h1 style={{ marginBottom: "3%", color: "red" }}>
-                        Add Product
-                    </h1>
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formGridName">
-                            <div className="form-floating mb-2">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="name"
-                                    id="floatingName"
-                                    onChange={handleChange}
-                                    placeholder="Enter product Name"
-                                />
-                                <label htmlFor="floatingName">Product Name</label>
-                            </div>
-                        </Form.Group>
+  return (
+    <div className="mainDiv" style={{ marginTop: '0' }}>
+      <Card className="divCard" style={{ padding: '5%' }}>
+        <h1 style={{ marginBottom: '3%', color: 'red' }}>Create Product</h1>
+        <Form onSubmit={handleSubmit} method="POST">
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formProductName">
+              <div className="form-floating mb-2">
+                <Form.Control
+                  type="text"
+                  name="name"
+                  placeholder="Enter product Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <Form.Label htmlFor="formProductName">Product Name</Form.Label>
+              </div>
+            </Form.Group>
+          </Row>
 
-                        
-                    </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formProductDescription">
+              <div className="form-floating mb-2">
+                <Form.Control
+                  as="textarea"
+                  name="description"
+                  placeholder="Enter product description"
+                  style={{ height: '100px' }}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <Form.Label htmlFor="formProductDescription">
+                  Product Description
+                </Form.Label>
+              </div>
+            </Form.Group>
+          </Row>
 
-                    <Form.Group className="mb-3" controlId="formGridImage">
-                        <div className="mb-2">
-                            <input
-                                type="file"
-                                className="form-control"
-                                name="image"
-                                accept="image/*"
-                                onChange={handleImageChange}
-                            />
-                        </div>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formGridDescription">
-                        <div className="form-floating mb-2">
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="description"
-                                onChange={handleChange}
-                                placeholder="Enter Product description"
-                            />
-                            <label htmlFor="floatingDescription">Product Description</label>
-                        </div>
-                    </Form.Group>
-
-                    <Row className="mb-2">
-                        <Form.Group as={Col} controlId="formGridPricing">
-                            <div className="form-floating mb-2">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="pricing"
-                                    onChange={handleChange}
-                                    placeholder="Enter Product Price"
-                                />
-                                <label htmlFor="floatingPricing">Pricing</label>
-                            </div>
-                        </Form.Group>
-                    </Row>
-
-                    <div style={{ float: "right" }}>
-                        <button className="btn btn-outline-danger" type="button">
-                            Cancel
-                        </button>&nbsp;&nbsp;
-                        <button className="btn btn-info" type="submit">
-                            Add Product
-                        </button>
-                    </div>
-                </form>
+          <Form.Group className="mb-3" controlId="formProductImage">
+            <div className="mb-2">
+              <Form.Control
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
             </div>
-        </>
-    );
+          </Form.Group>
+
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formProductPricing">
+              <div className="form-floating mb-2">
+                <Form.Control
+                  type="text"
+                  name="pricing"
+                  placeholder="Enter product price"
+                  value={pricing}
+                  onChange={(e) => setPricing(e.target.value)}
+                />
+                <Form.Label htmlFor="formProductPricing">Pricing</Form.Label>
+              </div>
+            </Form.Group>
+          </Row>
+
+          <div style={{ float: 'right' }}>
+            <Button variant="outline-danger" type="button" className="me-2">
+              Cancel
+            </Button>
+            <Button variant="info" type="submit">
+              Create Product
+            </Button>
+          </div>
+        </Form>
+        {message && <p className="mt-3">{message}</p>}
+      </Card>
+    </div>
+  );
 }
 
 export default Add;

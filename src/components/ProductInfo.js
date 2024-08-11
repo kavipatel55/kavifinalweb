@@ -31,7 +31,7 @@ function ProductInfo() {
           <div className="color-switch black"></div>
         </div>
         <div className="login-action">
-              <button type="submit" className="details-link">Buy Now</button>
+              <button type="submit" className="details-link">Add to Cart</button>
             </div>
       </div>
     </div>

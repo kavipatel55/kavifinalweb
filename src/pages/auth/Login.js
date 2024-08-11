@@ -6,20 +6,37 @@ function Login() {
     e.preventDefault();
     const formdata = new FormData(e.target);
     const userCred = {
-      user_id: formdata.get('user_id'),
-      user_password: formdata.get('user_password'),
+      email: formdata.get('user_id'),
+      password: formdata.get('user_password'),
     };
 
-    if (userCred.user_id && userCred.user_password) {
-      localStorage.setItem('username', userCred.user_id);
-      if(userCred.user_id=="admin@gmail.com" && userCred.user_password == "1234"){
+    if (userCred.email && userCred.password) {
+      if(userCred.email === "admin@gmail.com" && userCred.password === "1234"){
+        localStorage.setItem('username', userCred.email);
         window.location.href = "/Add";
       }else{
-      window.location.href = "/";
+        try {
+          const response = await fetch("http://localhost:3131/api/users/login", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userCred)
+          });
+          const data = await response.json();
+          if (response.ok) {
+            localStorage.setItem('username', userCred.email);
+            localStorage.setItem('authToken', data.authToken);
+            window.location.href = '/';
+          } else {
+            alert(data.error || 'Please check your credentials');
+          }
+        } catch (err) {
+          console.error('Error:', err);
+          alert('An error occurred while logging in');
+        }
       }
-      
     } else {
-     
       alert('Please fill in all fields.');
     }
   };
@@ -52,9 +69,9 @@ function Login() {
             />
             <div className="login-action">
               <button type="submit" className="buy-btn">Login</button>
-              <a href="#" className='forgot-pass'>Forget Password</a>
+              <a href="#" className='forgot-pass'>Forgot Password</a>
             </div>
-            <a href='/Signup' className='login_acc'>Dont Have an Account</a>
+            <a href='/Signup' className='login_acc'>Don't Have an Account</a>
           </form>
         </div>
       </div>
