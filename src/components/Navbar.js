@@ -60,10 +60,7 @@ function Navbar() {
               className="search-input"
               required
             />
-            <div style={{display:"flex",marginLeft:"15px",marginTop:"10px",gap:"10px"}}>
-            <FontAwesomeIcon icon={faShoppingCart} />
-            <FontAwesomeIcon icon={faUser} />
-            </div>
+            
         
       </div>
       <div>

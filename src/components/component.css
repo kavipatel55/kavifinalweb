@@ -57,7 +57,12 @@ margin-right: auto;}
   text-align: left;
   color: red;
 }
-
+.check-out{
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 70vh;
+}
 .button {
   justify-content: space-between;
   display: flex;

@@ -1,6 +1,9 @@
 import Table from 'react-bootstrap/Table';
 import "./component.css";
 function Cart(){
+    const Checkout = async=>{
+        window.location.href ="/CheckOut";
+    }
     return(
         <div className="cart">
             <h2>Cart</h2>
@@ -28,7 +31,7 @@ function Cart(){
                     </tr>
                 </tbody>
             </Table>
-            <button className='details-link'>
+            <button className='details-link' onClick={Checkout}>
                 Proceed to checkout
             </button>
            
