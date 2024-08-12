@@ -27,6 +27,7 @@ function Login() {
           if (response.ok) {
             localStorage.setItem('username', userCred.email);
             localStorage.setItem('authToken', data.authToken);
+            localStorage.setItem('userId', data.id);
             window.location.href = '/';
           } else {
             alert(data.error || 'Please check your credentials');

@@ -1,17 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from './Header';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
+
 function Navbar() {
   const checkuserState = !!localStorage.getItem('username');
   const username = checkuserState ? localStorage.getItem('username') : '';
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem('username');
+    localStorage.removeItem('authToken');
+    window.location.href = '/';
+    // try {
+    //   const authToken = localStorage.getItem('authToken');
     
-    window.location.href='/Login';
+    //   const response = await fetch("http://localhost:3131/api/users/logout", {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     credentials: 'include',
+    //     body: JSON.stringify({authToken: authToken})
+    //   });
+     
+    //   if (response.ok) {
+    //     // Clear localStorage items related to user authentication
+    //     localStorage.removeItem('username');
+    //     localStorage.removeItem('authToken');
+    //     localStorage.removeItem('userId');
+    
+    //     window.location.href = '/Login'; // Redirect to the login page
+    //   } else {
+    //     const data = await response.json();
+    //     alert(data.error || 'Logout failed');
+    //   }
+    // } catch (err) {
+    //   console.error('Error:', err);
+    //   alert('An error occurred while logging out');
+    // }
   };
-
   const navbarWrapper = {
     height: '2rem',
     display: 'flex',
